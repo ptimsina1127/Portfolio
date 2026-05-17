@@ -1,0 +1,17 @@
+node_modules/
+dist/
+out-tsc/
+*.log
+.env
+**/*.class
+**/*.jar
+target/
+.idea/
+*.iml
+.settings/
+.project
+.classpath
+.vscode/
+*.swp
+*.swo
+mysql_data/
