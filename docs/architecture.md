@@ -223,4 +223,4 @@ docker-compose.yml
 - Backend has no authentication — contact form is open, sync endpoint is unprotected
 - MySQL root is restricted to localhost in production; application uses a limited-privilege user
 - HTTPS terminates at Cloudflare (proxied) or via self-signed cert on the VM
-- No secrets are committed to the repository (DB passwords, API keys are env vars or in `.gitignore`d files)
+- No secrets are committed to the repository (DB passwords, API keys use placeholders in tracked files)

@@ -207,7 +207,7 @@ cd /home/ubuntu/portfolio/frontend && npm run build
 cd /home/ubuntu/portfolio/backend && mvn clean package -DskipTests
 
 # Check MySQL
-sudo docker exec portfolio-mysql mysql -uroot -pCHANGE_ME_ROOT -e "SHOW DATABASES;"
+sudo docker exec portfolio-mysql mysql -uroot -p<password> -e "SHOW DATABASES;"
 
 # Reload Nginx
 sudo nginx -t && sudo systemctl reload nginx
