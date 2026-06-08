@@ -17,3 +17,6 @@ bin/
 *.swo
 mysql_data/
 .angular/
+
+# Local config
+backend/src/main/resources/application.properties
