@@ -14,8 +14,9 @@ import { NgIf } from '@angular/common';
           <div class="flex-shrink-0">
             <img
               [src]="profile.avatarUrl"
-              [alt]="profile.name"
+              [alt]="'Portrait of ' + profile.name"
               class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-primary-500/30 shadow-xl shadow-primary-500/10"
+              loading="lazy"
             />
           </div>
 

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pravatk.com.np/sitemap.xml
