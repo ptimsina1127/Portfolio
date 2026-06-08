@@ -15,8 +15,6 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
                         .allowedOrigins("http://localhost:4200", "http://localhost:80", "http://localhost",
-                                "https://myprojects.com.np", "https://www.myprojects.com.np",
-                                "http://myprojects.com.np", "http://www.myprojects.com.np",
                                 "https://pravatk.com.np", "https://www.pravatk.com.np",
                                 "http://pravatk.com.np", "http://www.pravatk.com.np")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")

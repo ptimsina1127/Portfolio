@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-DOMAIN="myprojects.com.np"
+DOMAIN="pravatk.com.np"
 
 echo "=== One-time VM Setup Script ==="
 echo "Run this on your Oracle Cloud VM before deploying."

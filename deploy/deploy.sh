@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-DOMAIN="myprojects.com.np"
+DOMAIN="pravatk.com.np"
 VM_IP=$1
 
 if [ -z "$VM_IP" ]; then
@@ -75,7 +75,7 @@ ssh ubuntu@$VM_IP << 'EOF'
     sudo tee /etc/nginx/sites-available/portfolio > /dev/null << 'NGINXEOF'
 server {
     listen 80;
-    server_name myprojects.com.np www.myprojects.com.np;
+    server_name pravatk.com.np www.pravatk.com.np;
 
     root /home/ubuntu/portfolio/frontend/browser;
     index index.html;

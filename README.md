@@ -228,7 +228,6 @@ sudo nginx -t && sudo systemctl reload nginx
 ### CORS Allowed Origins
 - `localhost:4200`, `localhost:80`, `localhost`
 - `pravatk.com.np` (and `www.`)
-- `myprojects.com.np` (and `www.`)
 
 ## GitHub Sync
 
