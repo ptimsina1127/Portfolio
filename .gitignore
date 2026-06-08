@@ -20,3 +20,4 @@ mysql_data/
 
 # Local config
 backend/src/main/resources/application.properties
+AGENTS.local.md
