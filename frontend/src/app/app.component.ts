@@ -1,37 +1,42 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { HeroComponent } from './components/hero/hero.component';
-import { AboutComponent } from './components/about/about.component';
-import { SkillsComponent } from './components/skills/skills.component';
-import { ExperienceComponent } from './components/experience/experience.component';
-import { ProjectsComponent } from './components/projects/projects.component';
-import { ContactComponent } from './components/contact/contact.component';
+import { BootScreenComponent } from './xp/boot-screen.component';
+import { LoginScreenComponent } from './xp/login-screen.component';
+import { DesktopComponent } from './xp/desktop.component';
+import { SoundService } from './xp/sound.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    NavbarComponent,
-    HeroComponent,
-    AboutComponent,
-    SkillsComponent,
-    ExperienceComponent,
-    ProjectsComponent,
-    ContactComponent,
-  ],
+  imports: [BootScreenComponent, LoginScreenComponent, DesktopComponent],
   template: `
-    <app-navbar></app-navbar>
-    <main>
-      <section id="hero"><app-hero /></section>
-      <section id="about"><app-about /></section>
-      <section id="skills"><app-skills /></section>
-      <section id="experience"><app-experience /></section>
-      <section id="projects"><app-projects /></section>
-      <section id="contact"><app-contact /></section>
-    </main>
-    <footer class="text-center py-6 text-gray-500 text-sm border-t border-gray-800">
-      <p>&copy; 2026 Pravat Timsina. Built with Angular &amp; Spring Boot.</p>
-    </footer>
+    @if (screen === 'boot') {
+      <xp-boot-screen (bootComplete)="onBootComplete()" />
+    } @else if (screen === 'login') {
+      <xp-login-screen (loginComplete)="onLogin($event)" />
+    } @else if (screen === 'desktop') {
+      <xp-desktop (logout)="onLogout()" />
+    }
+
+    <div class="xp-crt-scanline"></div>
+    <div class="xp-crt-vignette"></div>
   `,
 })
-export class AppComponent {}
+export class AppComponent {
+  screen: 'boot' | 'login' | 'desktop' = 'boot';
+
+  constructor(private sound: SoundService) {}
+
+  onBootComplete() {
+    this.screen = 'login';
+  }
+
+  onLogin(_user: string) {
+    this.sound.playLogin();
+    this.screen = 'desktop';
+  }
+
+  onLogout() {
+    this.sound.playLogoff();
+    this.screen = 'login';
+  }
+}

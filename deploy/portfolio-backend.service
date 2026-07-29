@@ -6,7 +6,7 @@ After=network.target mysql.service
 Type=simple
 User=ubuntu
 WorkingDirectory=/home/ubuntu/portfolio/backend
-ExecStart=/usr/bin/java -jar /home/ubuntu/portfolio/backend/target/*.jar
+ExecStart=/usr/bin/java -Xmx96m -Xms64m -XX:+UseSerialGC -XX:MaxMetaspaceSize=96m -Xss256k -jar /home/ubuntu/portfolio/backend/app.jar
 Environment="SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3307/portfolio_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true"
 Environment="SPRING_DATASOURCE_USERNAME=portfolio"
 Environment="SPRING_DATASOURCE_PASSWORD=CHANGE_ME"
