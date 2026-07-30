@@ -46,9 +46,7 @@ import { Component } from '@angular/core';
 
     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pravattimsina&#64;gmail.com" target="_blank" class="xp-contact-link">
       <span class="xp-contact-icon">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="#ea4335">
-          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-        </svg>
+        <img src="assets/icons/email.png" width="24" height="24" alt="" />
       </span>
       <span>Email</span>
       <span style="flex:1;"></span>

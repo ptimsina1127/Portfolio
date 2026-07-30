@@ -5,47 +5,47 @@ import { Component, output } from '@angular/core';
   standalone: true,
   template: `
     <div class="xp-login">
-      <div class="xp-login-inner">
+      <div class="xp-login-glow"></div>
+
+      <div class="xp-login-center-wrap">
         <div class="xp-login-center">
+          <!-- Left: Flag + Branding -->
           <div class="xp-login-left">
-            <!-- Windows flag logo -->
-            <svg class="xp-login-logo" viewBox="0 0 64 64" width="64" height="64">
-              <path d="M4 4h27v27H4z" fill="#ff4b4b" opacity="0.9"/>
-              <path d="M33 4h27v27H33z" fill="#4cff4c" opacity="0.9"/>
-              <path d="M4 33h27v27H4z" fill="#4b4bff" opacity="0.9"/>
-              <path d="M33 33h27v27H33z" fill="#ffff4b" opacity="0.9"/>
-            </svg>
-            <div class="xp-login-left-text">
-              To begin, click on <span class="xp-login-instruction-name">User</span> to log in
+            <img src="assets/xp-flag.png" alt="" class="xp-login-flag" />
+            <div class="xp-login-brand">
+              <div class="xp-login-microsoft">Microsoft</div>
+              <div class="xp-login-windowsxp">Windows<span class="xp-login-xp">XP</span></div>
             </div>
+            <div class="xp-login-instruction">To begin, click your user name</div>
           </div>
 
+          <!-- Center: Divider -->
           <div class="xp-login-divider"></div>
 
+          <!-- Right: User Tile -->
           <div class="xp-login-right">
             <div class="xp-login-user-tile" tabindex="0" (click)="login()" (keydown.enter)="login()">
-              <img
-                src="https://avatars.githubusercontent.com/u/80919172?v=4"
-                alt="Pravat"
-                class="xp-login-avatar"
-              />
-              <div class="xp-login-name">User</div>
-              <div class="xp-login-role">Software Developer</div>
+              <div class="xp-login-user-highlight">
+                <img src="https://avatars.githubusercontent.com/u/80919172?v=4" alt="" class="xp-login-avatar" />
+                <div class="xp-login-username">Administrator</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="xp-login-restart" tabindex="0" (click)="restart()" (keydown.enter)="restart()">
-        <svg class="xp-login-restart-icon" viewBox="0 0 24 24" width="16" height="16">
-          <path fill="#ccc" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13v4H7l5 5 5-5h-4V7h-2z"/>
-        </svg>
-        <span class="xp-login-restart-text">Restart System</span>
-      </div>
-
-      <div class="xp-login-bottom-text">
-        <span>After you log on, the system's yours to explore.</span>
-        <span>Every detail has been designed with a purpose.</span>
+      <!-- Bottom Taskbar -->
+      <div class="xp-login-taskbar">
+        <div class="xp-login-taskbar-left" tabindex="0" (click)="restart()" (keydown.enter)="restart()">
+          <svg class="xp-login-standby-icon" viewBox="0 0 24 24" width="18" height="18">
+            <circle cx="12" cy="12" r="9" stroke="#bbb" stroke-width="1.5" fill="none"/>
+            <line x1="12" y1="3" x2="12" y2="12" stroke="#bbb" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span class="xp-login-turn-off-text">Turn off computer</span>
+        </div>
+        <div class="xp-login-taskbar-right">
+          <span class="xp-login-taskbar-desc">After you log on, you can add or change accounts. Just go to Control Panel and click User Accounts.</span>
+        </div>
       </div>
     </div>
   `,

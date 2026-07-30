@@ -13,6 +13,10 @@ export interface WindowState {
   width: number;
   height: number;
   zIndex: number;
+  savedX?: number;
+  savedY?: number;
+  savedWidth?: number;
+  savedHeight?: number;
 }
 
 @Component({
@@ -22,6 +26,7 @@ export interface WindowState {
     <div
       class="xp-window"
       [class.maximized]="state().maximized"
+      [style.display]="state().minimized ? 'none' : undefined"
       [style.left.px]="state().maximized ? 0 : state().x"
       [style.top.px]="state().maximized ? 0 : state().y"
       [style.width.px]="state().maximized ? undefined : state().width"
@@ -40,7 +45,7 @@ export interface WindowState {
           {{ state().icon }} {{ state().title }}
         </span>
         <div class="xp-window-controls">
-          <button class="xp-window-btn" (mousedown)="$event.stopPropagation()" (click)="onMinimize()">_</button>
+          <button class="xp-window-btn" (mousedown)="$event.stopPropagation()" (click)="onMinimize()">−</button>
           <button class="xp-window-btn" (mousedown)="$event.stopPropagation()" (click)="onToggleMaximize()">
             {{ state().maximized ? '❐' : '□' }}
           </button>
@@ -48,7 +53,7 @@ export interface WindowState {
         </div>
       </div>
 
-      <div class="xp-window-body" [style.display]="state().minimized ? 'none' : 'block'">
+      <div class="xp-window-body">
         <ng-content />
       </div>
 

@@ -7,12 +7,7 @@ import { OpenWindow } from './desktop.component';
   template: `
     <div class="xp-taskbar">
       <button class="xp-start-btn" (click)="startClicked.emit()">
-        <svg class="xp-start-flag" viewBox="0 0 64 64" width="20" height="20">
-          <path d="M4 4h27v27H4z" fill="#ff4b4b" opacity="0.9"/>
-          <path d="M33 4h27v27H33z" fill="#4cff4c" opacity="0.9"/>
-          <path d="M4 33h27v27H4z" fill="#4b4bff" opacity="0.9"/>
-          <path d="M33 33h27v27H33z" fill="#ffff4b" opacity="0.9"/>
-        </svg>
+        <img src="assets/xp-flag.png" class="xp-start-flag" width="20" height="20" alt="" />
         <span class="xp-start-text">start</span>
       </button>
 

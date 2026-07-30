@@ -8,6 +8,9 @@ import { SkillsWindowComponent } from '../windows/skills-window.component';
 import { ExperienceWindowComponent } from '../windows/experience-window.component';
 import { ProjectsWindowComponent } from '../windows/projects-window.component';
 import { ContactWindowComponent } from '../windows/contact-window.component';
+import { ResumeWindowComponent } from '../windows/resume-window.component';
+import { MyComputerWindowComponent } from '../windows/my-computer-window.component';
+import { RecycleBinWindowComponent } from '../windows/recycle-bin-window.component';
 
 export interface OpenWindow {
   id: string;
@@ -37,9 +40,12 @@ export interface DesktopIcon {
     ExperienceWindowComponent,
     ProjectsWindowComponent,
     ContactWindowComponent,
+    ResumeWindowComponent,
+    MyComputerWindowComponent,
+    RecycleBinWindowComponent,
   ],
   template: `
-    <div class="xp-desktop">
+    <div class="xp-desktop" [class.grayscale]="showTurnOffDialog || standbyActive">
       <div class="xp-desktop-wallpaper"></div>
 
       <!-- Welcome overlay -->
@@ -54,6 +60,9 @@ export interface DesktopIcon {
           <div class="xp-desktop-icon" (dblclick)="openWindow(icon.id)">
             <div class="xp-desktop-icon-img">
               @switch (icon.id) {
+                @case ('my-computer') {
+                  <img src="assets/icons/my-computer.png" width="32" height="32" />
+                }
                 @case ('about') {
                   <svg viewBox="0 0 32 32" width="32" height="32">
                     <rect x="4" y="2" width="24" height="28" rx="2" fill="#f0f0f0" stroke="#808080" stroke-width="1.5"/>
@@ -84,6 +93,9 @@ export interface DesktopIcon {
                     <path d="M2 8l14 10L30 8" fill="none" stroke="#3a7ad8" stroke-width="2"/>
                   </svg>
                 }
+                @case ('recycle-bin') {
+                  <img src="assets/icons/recycle-bin.png" width="32" height="32" />
+                }
               }
             </div>
             <span class="xp-desktop-icon-label">{{ icon.label }}</span>
@@ -107,6 +119,9 @@ export interface DesktopIcon {
             @case ('experience') { <win-experience /> }
             @case ('projects') { <win-projects /> }
             @case ('contact') { <win-contact /> }
+            @case ('resume') { <win-resume /> }
+            @case ('my-computer') { <win-my-computer /> }
+            @case ('recycle-bin') { <win-recycle-bin /> }
           }
         </xp-window>
       }
@@ -145,6 +160,7 @@ export interface DesktopIcon {
           [username]="'Pravat Timsina'"
           (itemClicked)="onStartMenuItem($event)"
           (logoutClicked)="showLogoffDialog = true; showStartMenu = false"
+          (turnOffClicked)="showTurnOffDialog = true; showStartMenu = false"
         />
       }
 
@@ -155,6 +171,38 @@ export interface DesktopIcon {
         (windowClicked)="focusWindow($event)"
       />
     </div>
+
+    <!-- Turn Off Computer Dialog (outside .xp-desktop for full color) -->
+    @if (showTurnOffDialog) {
+      <div class="xp-turnoff-overlay" (click)="cancelTurnOff()">
+        <div class="xp-turnoff-dialog" (click)="$event.stopPropagation()">
+          <div class="xp-turnoff-title">Turn off computer</div>
+          <div class="xp-turnoff-actions">
+            <button class="xp-turnoff-btn" tabindex="0" (click)="onStandby()" (keydown.enter)="onStandby()">
+              <img src="assets/icons/standby.png" width="48" height="48" />
+              <span>Stand By</span>
+            </button>
+            <button class="xp-turnoff-btn" tabindex="0" (click)="onTurnOff()" (keydown.enter)="onTurnOff()">
+              <img src="assets/icons/power.png" width="48" height="48" />
+              <span>Turn Off</span>
+            </button>
+            <button class="xp-turnoff-btn" tabindex="0" (click)="onRestart()" (keydown.enter)="onRestart()">
+              <img src="assets/icons/restart.png" width="48" height="48" />
+              <span>Restart</span>
+            </button>
+          </div>
+          <div class="xp-turnoff-footer">
+            <button class="xp-btn" (click)="cancelTurnOff()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Standby black overlay -->
+    @if (standbyActive) {
+      <div class="xp-standby-overlay active" (click)="exitStandby()" (keydown)="exitStandby()" tabindex="0">
+      </div>
+    }
   `,
 })
 export class DesktopComponent {
@@ -162,6 +210,8 @@ export class DesktopComponent {
 
   showStartMenu = false;
   showLogoffDialog = false;
+  showTurnOffDialog = false;
+  standbyActive = false;
   activeWindowId: string | null = null;
   private nextZIndex = 10;
 
@@ -169,26 +219,28 @@ export class DesktopComponent {
   welcomeFading = false;
 
   desktopIcons: DesktopIcon[] = [
+    { icon: 'my-computer', label: 'My Computer', id: 'my-computer' },
     { icon: 'about', label: 'About Me', id: 'about' },
     { icon: 'resume', label: 'My Resume', id: 'resume' },
     { icon: 'projects', label: 'My Projects', id: 'projects' },
     { icon: 'contact', label: 'Contact Me', id: 'contact' },
+    { icon: 'recycle-bin', label: 'Recycle Bin', id: 'recycle-bin' },
   ];
 
   openWindows: OpenWindow[] = [];
   windowStates: WindowState[] = [];
 
   startMenuItems: StartMenuItem[] = [
-    { icon: '👤', label: 'About Me', id: 'about', section: 'right' },
-    { icon: '📄', label: 'My Resume', id: 'resume', section: 'right' },
-    { icon: '🛠️', label: 'My Skills', id: 'skills', section: 'right' },
-    { icon: '💼', label: 'Experience', id: 'experience', section: 'right' },
-    { icon: '📁', label: 'My Projects', id: 'projects', section: 'right' },
-    { icon: '✉️', label: 'Contact Me', id: 'contact', section: 'right' },
-    { icon: '🌐', label: 'GitHub', id: 'github', section: 'left' },
-    { icon: '🔗', label: 'LinkedIn', id: 'linkedin', section: 'left' },
-    { icon: '🐦', label: 'Twitter', id: 'twitter', section: 'left' },
-    { icon: '📄', label: 'Resume', id: 'resume-pdf', section: 'left' },
+    { icon: '👤', iconImg: 'assets/icons/user-accounts.png', label: 'About Me', id: 'about', section: 'right' },
+    { icon: '📄', iconImg: 'assets/icons/document.png', label: 'My Resume', id: 'resume', section: 'right' },
+    { icon: '🛠️', iconImg: 'assets/icons/tools.png', label: 'My Skills', id: 'skills', section: 'right' },
+    { icon: '💼', iconImg: 'assets/icons/briefcase.png', label: 'Experience', id: 'experience', section: 'right' },
+    { icon: '📁', iconImg: 'assets/icons/folder.png', label: 'My Projects', id: 'projects', section: 'right' },
+    { icon: '✉️', iconImg: 'assets/icons/email.png', label: 'Contact Me', id: 'contact', section: 'right' },
+    { icon: '🌐', iconImg: 'assets/icons/github.svg', label: 'GitHub', id: 'github', section: 'left' },
+    { icon: '🔗', iconImg: 'assets/icons/linkedin.svg', label: 'LinkedIn', id: 'linkedin', section: 'left' },
+    { icon: '🐦', iconImg: 'assets/icons/twitter.svg', label: 'Twitter', id: 'twitter', section: 'left' },
+    { icon: '📄', iconImg: 'assets/icons/document.png', label: 'Resume', id: 'resume-pdf', section: 'left' },
   ];
 
   ngOnInit() {
@@ -196,7 +248,18 @@ export class DesktopComponent {
       this.welcomeFading = true;
       setTimeout(() => { this.showWelcome = false; }, 800);
     }, 1500);
+
+    // Listen for folder clicks from My Computer window
+    window.addEventListener('open-window', this.handleOpenWindow as EventListener);
   }
+
+  ngOnDestroy() {
+    window.removeEventListener('open-window', this.handleOpenWindow as EventListener);
+  }
+
+  private handleOpenWindow = (e: CustomEvent) => {
+    this.openWindow(e.detail);
+  };
 
   toggleStartMenu() {
     this.showStartMenu = !this.showStartMenu;
@@ -206,13 +269,33 @@ export class DesktopComponent {
     this.showLogoffDialog = false;
   }
 
+  cancelTurnOff() {
+    this.showTurnOffDialog = false;
+  }
+
+  onStandby() {
+    this.showTurnOffDialog = false;
+    this.standbyActive = true;
+  }
+
+  exitStandby() {
+    this.standbyActive = false;
+  }
+
+  onTurnOff() {
+    window.location.reload();
+  }
+
+  onRestart() {
+    window.location.reload();
+  }
+
   onStartMenuItem(item: StartMenuItem) {
     this.showStartMenu = false;
     if (item.id === 'github') { window.open('https://github.com/ptimsina1127', '_blank'); return; }
     if (item.id === 'linkedin') { window.open('https://linkedin.com/in/ptimsina', '_blank'); return; }
     if (item.id === 'twitter') { window.open('https://x.com/pravatktimsina', '_blank'); return; }
     if (item.id === 'resume-pdf') { window.open('assets/Handshake_Pravat_Resume.pdf', '_blank'); return; }
-    if (item.id === 'resume') { window.open('assets/Handshake_Pravat_Resume.pdf', '_blank'); return; }
     this.openWindow(item.id);
   }
 
@@ -234,10 +317,13 @@ export class DesktopComponent {
 
     const defs: Record<string, { title: string; icon: string }> = {
       about: { title: 'About Me', icon: '👤' },
+      resume: { title: 'My Resume', icon: '📄' },
       skills: { title: 'My Skills', icon: '🛠️' },
       experience: { title: 'Experience', icon: '💼' },
       projects: { title: 'My Projects', icon: '📁' },
       contact: { title: 'Contact Me', icon: '✉️' },
+      'my-computer': { title: 'My Computer', icon: '💻' },
+      'recycle-bin': { title: 'Recycle Bin', icon: '🗑️' },
     };
 
     const def = defs[id];
@@ -280,7 +366,21 @@ export class DesktopComponent {
 
   toggleMaximizeWindow(id: string) {
     const win = this.openWindows.find(w => w.id === id);
-    if (win) win.maximized = !win.maximized;
+    const state = this.windowStates.find(w => w.id === id);
+    if (!win || !state) return;
+    if (!win.maximized) {
+      state.savedX = state.x;
+      state.savedY = state.y;
+      state.savedWidth = state.width;
+      state.savedHeight = state.height;
+      win.maximized = true;
+    } else {
+      if (state.savedX !== undefined) state.x = state.savedX;
+      if (state.savedY !== undefined) state.y = state.savedY;
+      if (state.savedWidth !== undefined) state.width = state.savedWidth;
+      if (state.savedHeight !== undefined) state.height = state.savedHeight;
+      win.maximized = false;
+    }
     this.syncState();
   }
 
@@ -291,6 +391,10 @@ export class DesktopComponent {
       state.active = true;
       state.zIndex = this.nextZIndex++;
       this.windowStates.forEach(w => { if (w.id !== id) w.active = false; });
+      if (state.minimized) {
+        state.minimized = false;
+        this.syncState();
+      }
     }
     this.showStartMenu = false;
   }

@@ -59,93 +59,10 @@ html, body {
   z-index: 9999;
 }
 
-.xp-boot-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-.xp-boot-flag {
-  filter: drop-shadow(0 0 12px rgba(255,255,255,0.12));
-  margin-bottom: 4px;
-}
-
-/* Animated loading boxes */
-.xp-boot-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 24px;
-}
-
-.xp-boot-boxes {
-  display: flex;
-  gap: 6px;
-}
-
-.xp-boot-box {
-  width: 14px;
-  height: 14px;
-  background: #1a3a6a;
-  border: 1px solid #3a7ac8;
-  transition: background 0.3s, box-shadow 0.3s;
-}
-
-.xp-boot-box.active {
-  background: linear-gradient(180deg, #b0e8b0 0%, #40c040 40%, #209020 100%);
-  box-shadow: 0 0 6px rgba(64, 192, 64, 0.4);
-}
-
-/* Delay message */
-.xp-boot-delay-msg {
-  color: #fff;
-  font-size: 14px;
-  text-shadow: 1px 1px 2px #000;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-
-.xp-boot-delay-msg.visible {
-  opacity: 1;
-}
-
-/* Bottom-left fullscreen text */
-.xp-boot-bottom-left {
-  position: absolute;
-  bottom: 24px;
-  left: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.xp-boot-bottom-left span {
-  font-family: Tahoma, sans-serif;
-  font-size: 11px;
-  color: #888;
-}
-
-.xp-boot-bottom-left span:last-child {
-  font-size: 13px;
-  font-weight: 700;
-  color: #ccc;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
-}
-
-/* Bottom-right wordmark */
-.xp-boot-bottom-right {
-  position: absolute;
-  bottom: 24px;
-  right: 24px;
-}
-
-.xp-boot-wordmark text {
-  fill: #888;
-  font-size: 22px;
-  font-weight: 700;
-  font-family: 'Trebuchet MS', Tahoma, sans-serif;
+.xp-boot-gif {
+  max-width: 100%;
+  max-height: 100%;
+  image-rendering: auto;
 }
 
 /* ============================
@@ -154,153 +71,193 @@ html, body {
 .xp-login {
   position: fixed;
   inset: 0;
-  background: linear-gradient(180deg, #2159d6 0%, #3173e8 50%, #3a7ae8 100%);
+  background: linear-gradient(165deg, #6ec8f0 0%, #1a5ad0 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   z-index: 9998;
+  overflow: hidden;
 }
 
-.xp-login-inner {
+.xp-login-glow {
+  position: absolute;
+  top: -200px;
+  left: -200px;
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(ellipse at 25% 25%, rgba(255,255,255,0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.xp-login-center-wrap {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  flex: 1;
 }
 
 .xp-login-center {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 48px;
 }
 
+/* --- Left Panel --- */
 .xp-login-left {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-}
-
-.xp-login-logo {
-  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
-}
-
-.xp-login-left-text {
-  color: #fff;
-  font-size: 13px;
   text-align: center;
-  max-width: 200px;
-  line-height: 1.4;
-  text-shadow: 1px 2px 3px rgba(0,0,0,0.3);
 }
 
-.xp-login-instruction-name {
-  font-weight: 700;
-  color: #7fc7ff;
+.xp-login-flag {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
 }
 
-.xp-login-divider {
-  width: 1px;
-  height: 160px;
-  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.4), transparent);
-}
-
-.xp-login-right {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.xp-login-user-tile {
+.xp-login-brand {
   display: flex;
   flex-direction: column;
   align-items: center;
+  line-height: 1.15;
+  margin-bottom: 6px;
+}
+
+.xp-login-microsoft {
+  font-family: 'Trebuchet MS', Tahoma, sans-serif;
+  font-size: 15px;
+  color: #fff;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+}
+
+.xp-login-windowsxp {
+  font-family: 'Trebuchet MS', Tahoma, sans-serif;
+  font-size: 26px;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.xp-login-xp {
+  color: #ff6600;
+}
+
+.xp-login-instruction {
+  font-family: Tahoma, sans-serif;
+  font-size: 12px;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  white-space: nowrap;
+}
+
+/* --- Divider --- */
+.xp-login-divider {
+  width: 1px;
+  height: 140px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.2) 15%, rgba(255,255,255,0.2) 85%, transparent);
+}
+
+/* --- Right Panel --- */
+.xp-login-right {
+  display: flex;
+  align-items: center;
+}
+
+.xp-login-user-tile {
   cursor: pointer;
-  transition: transform 0.15s, background 0.15s;
-  background: rgba(255,255,255,0.1);
-  border: 2px solid transparent;
-  border-radius: 12px;
-  padding: 24px 32px 16px;
-  min-width: 140px;
   outline: none;
 }
 
 .xp-login-user-tile:hover,
 .xp-login-user-tile:focus {
-  background: rgba(255,255,255,0.18);
-  border-color: rgba(255,255,255,0.4);
-  transform: scale(1.03);
+  outline: 1px solid rgba(255,255,255,0.25);
+  outline-offset: 2px;
 }
 
-.xp-login-user-tile:active {
-  transform: scale(0.98);
+.xp-login-user-tile:active .xp-login-user-highlight {
+  background: linear-gradient(90deg, rgba(41, 96, 185, 0.8), rgba(41, 96, 185, 0));
+}
+
+.xp-login-user-highlight {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 48px 8px 12px;
+  background: linear-gradient(90deg, rgba(41, 96, 185, 0.55), rgba(41, 96, 185, 0));
+  transition: background 0.15s;
 }
 
 .xp-login-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 3px solid rgba(255,255,255,0.5);
-  margin-bottom: 12px;
+  width: 48px;
+  height: 48px;
+  border: 2px solid #c9a84c;
   object-fit: cover;
   background: #3a6ea5;
+  flex-shrink: 0;
 }
 
-.xp-login-name {
-  font-size: 14px;
+.xp-login-username {
+  font-family: 'Trebuchet MS', Tahoma, sans-serif;
+  font-size: 15px;
   font-weight: 600;
   color: #fff;
-  margin-bottom: 2px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+  white-space: nowrap;
 }
 
-.xp-login-role {
-  font-size: 11px;
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 8px;
-}
-
-/* Restart System button */
-.xp-login-restart {
+/* --- Bottom Taskbar --- */
+.xp-login-taskbar {
   position: absolute;
-  bottom: 80px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 34px;
+  background: linear-gradient(180deg, #1a3a6a 0%, #0d2240 100%);
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-top: 1px solid #2a5a9a;
+}
+
+.xp-login-taskbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.15s;
+  padding: 4px 8px;
 }
 
-.xp-login-restart:hover {
-  opacity: 1;
+.xp-login-taskbar-left:hover {
+  background: rgba(255,255,255,0.08);
 }
 
-.xp-login-restart-icon {
+.xp-login-standby-icon {
   display: block;
+  flex-shrink: 0;
 }
 
-.xp-login-restart-text {
+.xp-login-turn-off-text {
+  font-family: 'Trebuchet MS', Tahoma, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
   color: #ccc;
-  font-size: 11px;
 }
 
-/* Bottom text */
-.xp-login-bottom-text {
-  position: absolute;
-  bottom: 28px;
+.xp-login-taskbar-right {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 2px;
 }
 
-.xp-login-bottom-text span {
+.xp-login-taskbar-desc {
+  font-family: Tahoma, sans-serif;
   font-size: 11px;
-  color: rgba(255,255,255,0.5);
-  text-align: center;
+  color: rgba(255,255,255,0.4);
+  text-align: right;
+  max-width: 420px;
 }
-
-/* Mobile bottom text is shown on small screens via media query */
 
 /* ============================
    WELCOME OVERLAY
@@ -342,18 +299,17 @@ html, body {
 .xp-desktop-wallpaper {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, #3b7dd8 0%, #57a6e3 30%, #7fc7a0 60%, #4a8c5c 100%);
+  background: url('assets/xp-wallpaper.jpg') center/cover no-repeat;
   z-index: 0;
 }
 
-/* Desktop shortcut icons */
 .xp-desktop-icons {
   position: absolute;
   top: 10px;
   left: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 8px;
   z-index: 1;
 }
 
@@ -372,8 +328,10 @@ html, body {
 }
 
 .xp-desktop-icon:hover {
-  background: rgba(255,255,255,0.12);
-  border-color: rgba(255,255,255,0.2);
+  background: rgba(57, 115, 214, 0.25);
+  border-color: rgba(57, 115, 214, 0.6);
+  outline: 1px solid rgba(255,255,255,0.08);
+  outline-offset: -1px;
 }
 
 .xp-desktop-icon-img {
@@ -387,6 +345,10 @@ html, body {
 
 .xp-desktop-icon-img svg {
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
+
+.xp-desktop-icon-img img {
+  image-rendering: auto;
 }
 
 .xp-desktop-icon-label {
@@ -405,11 +367,12 @@ html, body {
   left: 0;
   right: 0;
   height: 32px;
-  background: linear-gradient(180deg, #316cd8 0%, #2954b8 3%, #2b5ec8 5%, #2b5ec8 95%, #1a3d8a 100%);
+  background: linear-gradient(180deg, #2f68d0 0%, #2a5abe 3%, #2b5ec8 5%, #2b5ec8 92%, #1a3d8a 98%, #15307a 100%);
   display: flex;
   align-items: center;
   z-index: 9990;
-  border-top: 1px solid #1048a0;
+  border-top: 1px solid #0d40a0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
   padding: 0 2px;
 }
 
@@ -418,13 +381,13 @@ html, body {
   align-items: center;
   gap: 3px;
   height: 26px;
-  padding: 0 10px 0 5px;
+  padding: 0 12px 0 5px;
   margin: 0 2px;
   background: linear-gradient(180deg, #3eb048 0%, #2b8a33 50%, #1f6e26 100%);
   border: 1px solid #0f4a14;
   border-top-color: #6dcf77;
   border-left-color: #5ac065;
-  border-radius: 0 6px 6px 0;
+  border-radius: 0 8px 8px 0;
   cursor: pointer;
   color: #fff;
   font-family: Tahoma, sans-serif;
@@ -451,15 +414,15 @@ html, body {
 
 .xp-start-flag {
   display: block;
-  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3));
+  image-rendering: auto;
 }
 
 .xp-taskbar-divider {
   width: 2px;
   height: 24px;
   background: linear-gradient(90deg, #1a4d9a, transparent);
-  margin: 0 4px;
-  border-right: 1px solid rgba(255,255,255,0.15);
+  margin: 0 3px;
+  border-right: 1px solid rgba(255,255,255,0.12);
 }
 
 .xp-taskbar-windows {
@@ -491,12 +454,13 @@ html, body {
   overflow: hidden;
   text-overflow: ellipsis;
   outline: none;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
 }
 
 .xp-taskbar-window-btn.active {
   background: linear-gradient(180deg, #3a70c8 0%, #1f58b0 50%, #1a4a9a 100%);
   border-color: #0a3060;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(0,0,0,0.1);
 }
 
 .xp-taskbar-window-btn:hover {
@@ -508,10 +472,11 @@ html, body {
   align-items: center;
   gap: 4px;
   height: 26px;
-  padding: 0 8px;
+  padding: 0 6px 0 8px;
   background: linear-gradient(180deg, #1a6ad0 0%, #1858b8 50%, #1858b8 100%);
   border-left: 1px solid #104080;
   margin-left: 4px;
+  box-shadow: inset 1px 0 0 rgba(255,255,255,0.08);
 }
 
 .xp-tray-icons {
@@ -541,10 +506,10 @@ html, body {
   left: 2px;
   width: 380px;
   background: #f0f0f0;
-  border: 2px solid #3973d6;
+  border: 2px solid #0d50b0;
   border-radius: 6px 6px 0 0;
   z-index: 9991;
-  box-shadow: 2px -2px 8px rgba(0,0,0,0.3);
+  box-shadow: 3px -3px 10px rgba(0,0,0,0.35);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -561,14 +526,15 @@ html, body {
   align-items: center;
   gap: 10px;
   padding: 8px 12px;
-  background: linear-gradient(180deg, #2765d0 0%, #1a4fa8 100%);
+  background: linear-gradient(180deg, #1a60d0 0%, #1048b0 100%);
   color: #fff;
+  border-bottom: 1px solid #0a3080;
 }
 
 .xp-start-header-flag {
   display: block;
   flex-shrink: 0;
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+  image-rendering: auto;
 }
 
 .xp-start-header-avatar {
@@ -651,15 +617,30 @@ html, body {
 .xp-start-footer {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   padding: 4px 8px;
-  background: linear-gradient(180deg, #e0e0e0, #d0d0d0);
+  background: linear-gradient(180deg, #e8e8e8 0%, #d8d8d8 50%, #c8c8c8 100%);
   border-top: 1px solid #b0b0b0;
-  gap: 4px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+}
+
+.xp-start-footer-left,
+.xp-start-footer-right {
+  flex: 1;
+}
+
+.xp-start-footer-right {
+  text-align: right;
+}
+
+.xp-start-footer-divider {
+  width: 1px;
+  height: 24px;
+  background: #b0b0b0;
+  margin: 0 4px;
 }
 
 .xp-start-footer-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 4px;
   padding: 3px 10px;
@@ -683,6 +664,13 @@ html, body {
   background: linear-gradient(180deg, #b5b5b5 0%, #d5d5d5 50%, #f0f0f0 100%);
 }
 
+.xp-start-left-item-icon-img,
+.xp-start-right-item-icon-img {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
 /* ============================
    LOG OFF DIALOG
    ============================ */
@@ -698,7 +686,7 @@ html, body {
 
 .xp-logoff-dialog {
   background: #ece9d8;
-  border: 2px solid #3973d6;
+  border: 2px solid #0d50b0;
   border-radius: 6px;
   box-shadow: 2px 2px 16px rgba(0,0,0,0.4);
   width: 320px;
@@ -761,14 +749,116 @@ html, body {
 }
 
 /* ============================
-   XP WINDOW
+   TURN OFF COMPUTER DIALOG
+   ============================ */
+.xp-turnoff-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.xp-turnoff-dialog {
+  background: #ece9d8;
+  border: 2px solid #0d50b0;
+  border-radius: 6px;
+  box-shadow: 2px 2px 16px rgba(0,0,0,0.4);
+  padding: 20px 30px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.xp-turnoff-title {
+  font-family: 'Trebuchet MS', Tahoma, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+.xp-turnoff-actions {
+  display: flex;
+  gap: 24px;
+}
+
+.xp-turnoff-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 12px 16px 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  outline: none;
+  transition: background 0.1s;
+}
+
+.xp-turnoff-btn:hover,
+.xp-turnoff-btn:focus {
+  background: #3973d6;
+}
+
+.xp-turnoff-btn span {
+  font-size: 11px;
+  color: #000;
+}
+
+.xp-turnoff-btn:hover span,
+.xp-turnoff-btn:focus span {
+  color: #fff;
+}
+
+.xp-turnoff-footer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Desktop grayscale effect */
+.xp-desktop.grayscale {
+  filter: grayscale(100%);
+  transition: filter 1.5s ease;
+}
+
+/* Standby black overlay */
+.xp-standby-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10002;
+  background: #000;
+  cursor: default;
+  outline: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+
+.xp-standby-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ============================
+   XP WINDOW — Authentic Luna style
    ============================ */
 .xp-window {
   position: absolute;
   background: #ece9d8;
-  border: 2px solid #3973d6;
-  border-radius: 6px 6px 0 0;
-  box-shadow: 2px 2px 12px rgba(0,0,0,0.35);
+  /* XP 3D raised frame: outer dark edge, inner light highlight */
+  border: 1px solid #0a3880;
+  border-top-color: #0d50b0;
+  border-left-color: #0d50b0;
+  border-right-color: #082860;
+  border-bottom-color: #082860;
+  box-shadow:
+    inset 0 0 0 1px #6ba0f0,
+    2px 2px 10px rgba(0,0,0,0.35);
   display: flex;
   flex-direction: column;
   min-width: 250px;
@@ -779,21 +869,28 @@ html, body {
 .xp-window.maximized {
   border-radius: 0;
   border: none;
+  box-shadow: none;
 }
 
 .xp-window-titlebar {
   display: flex;
   align-items: center;
-  height: 28px;
-  background: linear-gradient(180deg, #0a4fbf 0%, #0d50c0 3%, #1560d0 5%, #1560d0 50%, #0d4db8 95%, #0a3d9a 100%);
+  height: 30px;
+  /* Active Luna blue gradient */
+  background: linear-gradient(180deg, #0a5ce0 0%, #0a50c8 4%, #0e5ed0 6%, #0e5ed0 40%, #0a50c0 70%, #0840a0 96%, #063090 100%);
   cursor: default;
   user-select: none;
   padding: 0 4px;
   flex-shrink: 0;
+  border-bottom: 1px solid #0a3880;
+  /* Top highlight edge */
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
 }
 
 .xp-window-titlebar.inactive {
-  background: linear-gradient(180deg, #7a8aa0 0%, #7a8aa0 3%, #8a9ab0 5%, #8a9ab0 50%, #7a8aa0 95%, #6a7a90 100%);
+  background: linear-gradient(180deg, #a8a8a8 0%, #989898 4%, #a0a0a0 6%, #a0a0a0 40%, #909090 70%, #808080 96%, #787878 100%);
+  border-bottom: 1px solid #888;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
 }
 
 .xp-window-title {
@@ -805,56 +902,89 @@ html, body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  letter-spacing: 0.3px;
+}
+
+.xp-window-titlebar.inactive .xp-window-title {
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.25);
 }
 
 .xp-window-controls {
   display: flex;
   gap: 2px;
+  padding-right: 2px;
 }
 
+/* XP caption buttons — 3D raised look */
 .xp-window-btn {
-  width: 20px;
-  height: 20px;
+  width: 21px;
+  height: 21px;
   border: none;
-  border-radius: 2px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
-  font-family: 'Webdings', 'Segoe UI', sans-serif;
+  font-size: 12px;
   outline: none;
-  background: linear-gradient(180deg, #3a8ad8 0%, #2a70c0 50%, #1a58a8 100%);
-  border: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 1px;
+  /* 3D raised effect */
+  border: 1px solid #1a5aa0;
+  border-top-color: #8abaee;
+  border-left-color: #7aaaee;
+  border-right-color: #1a4a88;
+  border-bottom-color: #1a4a88;
+  background: linear-gradient(180deg, #5a9aea 0%, #3a80d0 50%, #2a68b8 100%);
   color: #fff;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+  border-radius: 0;
 }
 
 .xp-window-btn:hover {
-  background: linear-gradient(180deg, #5a9ae8 0%, #3a80d0 50%, #2a68b8 100%);
+  background: linear-gradient(180deg, #6aaafa 0%, #4a90e0 50%, #3a78c8 100%);
+  border-top-color: #a0caee;
+  border-left-color: #90bae6;
 }
 
 .xp-window-btn:active {
-  background: linear-gradient(180deg, #1a58a8 0%, #2a70c0 50%, #3a8ad8 100%);
+  border: 1px solid #1a4a88;
+  background: linear-gradient(180deg, #2a68b8 0%, #3a80d0 50%, #5a9aea 100%);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
 }
 
 .xp-window-btn.close {
-  background: linear-gradient(180deg, #c85050 0%, #b03030 50%, #901818 100%);
+  background: linear-gradient(180deg, #d06060 0%, #b84040 50%, #982828 100%);
+  border: 1px solid #8a2828;
+  border-top-color: #e08080;
+  border-left-color: #d07070;
+  border-right-color: #701818;
+  border-bottom-color: #701818;
 }
 
 .xp-window-btn.close:hover {
-  background: linear-gradient(180deg, #d86060 0%, #c04040 50%, #a02828 100%);
+  background: linear-gradient(180deg, #e07070 0%, #c85050 50%, #a83838 100%);
+  border-top-color: #f09090;
+  border-left-color: #e08080;
 }
 
 .xp-window-btn.close:active {
-  background: linear-gradient(180deg, #901818 0%, #b03030 50%, #c85050 100%);
+  border: 1px solid #701818;
+  background: linear-gradient(180deg, #982828 0%, #b84040 50%, #d06060 100%);
+}
+
+.xp-window-btn.minimize {
+  font-size: 12px;
+  padding-bottom: 2px;
+}
+
+.xp-window-btn.maximize {
+  font-size: 11px;
 }
 
 .xp-window-body {
   flex: 1;
   overflow: auto;
-  padding: 12px 14px;
+  padding: 8px;
   background: #fff;
   font-size: 11px;
   line-height: 1.4;
@@ -879,9 +1009,10 @@ html, body {
   width: 14px;
   height: 14px;
   cursor: se-resize;
-  background: linear-gradient(135deg, transparent 50%, #aca899 50%, #aca899 52%, transparent 52%),
-              linear-gradient(135deg, transparent 55%, #aca899 55%, #aca899 57%, transparent 57%),
-              linear-gradient(135deg, transparent 60%, #aca899 60%, #aca899 62%, transparent 62%);
+  background:
+    linear-gradient(135deg, transparent 50%, #aca899 50%, #aca899 52%, transparent 52%),
+    linear-gradient(135deg, transparent 55%, #aca899 55%, #aca899 57%, transparent 57%),
+    linear-gradient(135deg, transparent 60%, #aca899 60%, #aca899 62%, transparent 62%);
   z-index: 2;
 }
 
@@ -958,19 +1089,23 @@ html, body {
 }
 
 .xp-btn-primary {
-  background: linear-gradient(180deg, #4a8ad8 0%, #3070c0 50%, #2058a8 100%);
-  border-color: #104080;
-  border-top-color: #6ba0f0;
-  border-left-color: #5a90e0;
+  background: linear-gradient(180deg, #1a5ca8 0%, #0d3d8a 50%, #062a6a 100%);
+  border-color: #041e50;
+  border-top-color: #3a7ad8;
+  border-left-color: #2a6ac8;
+  border-right-color: #041840;
+  border-bottom-color: #041840;
   color: #fff;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
 }
 
 .xp-btn-primary:hover {
-  background: linear-gradient(180deg, #5a9ae8 0%, #4080d0 50%, #3068b8 100%);
+  background: linear-gradient(180deg, #2a6cb8 0%, #1d4d9a 50%, #0a3878 100%);
 }
 
 .xp-btn-primary:active {
-  background: linear-gradient(180deg, #2058a8 0%, #3070c0 50%, #4a8ad8 100%);
+  background: linear-gradient(180deg, #062a6a 0%, #0d3d8a 50%, #1a5ca8 100%);
+  border-color: #041e50;
 }
 
 /* ============================
@@ -1265,50 +1400,6 @@ html, body {
 }
 
 /* ============================
-   CONTACT FORM
-   ============================ */
-.xp-form-group {
-  margin-bottom: 8px;
-}
-
-.xp-form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.xp-form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 6px;
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid #d0d0d0;
-}
-
-.xp-success-message {
-  text-align: center;
-  padding: 30px 0;
-}
-
-.xp-success-icon {
-  font-size: 36px;
-  color: #3a9b50;
-  margin-bottom: 8px;
-}
-
-.xp-success-title {
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.xp-success-text {
-  color: #666;
-  margin-bottom: 12px;
-}
-
-/* ============================
    CONTACT LINKS
    ============================ */
 .xp-contact-link {
@@ -1340,19 +1431,53 @@ html, body {
   flex-shrink: 0;
 }
 
+.xp-contact-icon img {
+  width: 24px;
+  height: 24px;
+  image-rendering: auto;
+}
+
+/* ============================
+   RESUME VIEWER (iframe)
+   ============================ */
+.xp-resume-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  background: #ece9d8;
+  border-bottom: 1px solid #aca899;
+  flex-shrink: 0;
+}
+
+.xp-resume-frame {
+  width: 100%;
+  flex: 1;
+  border: none;
+  background: #fff;
+}
+
 /* ============================
    RESPONSIVE
    ============================ */
 @media (max-width: 768px) {
   .xp-login-center {
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
   }
 
   .xp-login-divider {
-    width: 160px;
+    width: 140px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  }
+
+  .xp-login-user-highlight {
+    padding: 8px 24px 8px 12px;
+  }
+
+  .xp-login-taskbar-desc {
+    display: none;
   }
 
   .xp-boot-bottom-left,

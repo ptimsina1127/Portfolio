@@ -31,12 +31,12 @@ export class AppComponent {
   }
 
   onLogin(_user: string) {
-    this.sound.playLogin();
+    this.sound.playLogin().catch(() => {});
     this.screen = 'desktop';
   }
 
   onLogout() {
-    this.sound.playLogoff();
+    this.sound.playLogoff().catch(() => {});
     this.screen = 'login';
   }
 }
